@@ -66,7 +66,7 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
   -- NOTE: First, some plugins that don't require any configuration
-
+  'puremourning/vimspector',
   -- Git related plugins
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
@@ -279,6 +279,24 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.cmd([[
+let g:vimspector_sidebar_width = 85
+let g:vimspector_bottombar_height = 15
+let g:vimspector_terminal_maxwidth = 70
+]])
+
+vim.cmd([[
+nmap <F9> <cmd>call vimspector#Launch()<cr>
+nmap <F5> <cmd>call vimspector#StepOver()<cr>
+nmap <F8> <cmd>call vimspector#Reset()<cr>
+nmap <F11> <cmd>call vimspector#StepOver()<cr>
+nmap <F12> <cmd>call vimspector#StepOut()<cr>
+nmap <F10> <cmd>call vimspector#StepInto()<cr>
+]])
+vim.keymap.set('n', "Db", ":call vimspector#ToggleBreakpoint()<cr>")
+vim.keymap.set('n', "Dw", ":call vimspector#AddWatch()<cr>")
+vim.keymap.set('n', "De", ":call vimspector#Evaluate()<cr>")
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
